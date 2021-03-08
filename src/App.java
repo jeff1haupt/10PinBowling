@@ -39,13 +39,18 @@ public class App {
                             tempScore += 10;
                         }
                         if ( s == 0 && frames.get(i-1).contains("/")) {
-// finish out 10th frame scoring
+                            tempScore += 10;
                         }
                     } else if ( tempChar == '/' ) {
                         tempScore += 10 - Character.getNumericValue(tempString.charAt(s-1));
                     } else {
                         tempScore += Character.getNumericValue(tempChar);
-                        // this needs to check to see if 9th frame was a strike or a spare too
+                        if ( (s == 0 || s == 1) && (frames.get(i-1).charAt(0) == 'X')) {
+                            tempScore += Character.getNumericValue(tempChar);
+                        }
+                        if ( s == 0 && frames.get(i-1).contains("/")) {
+                            tempScore += Character.getNumericValue(tempChar);
+                        }
                     }
                 }
             } else {
@@ -80,7 +85,6 @@ public class App {
                 }
             }
         }
-        System.out.println(tempScore);
-        return 0;
+        return tempScore;
     }
 }
